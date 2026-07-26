@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0a0a08;
+  --bg-elevated: #111110;
+  --bg-card: #181816;
+  --neon: #c8ff00;
+  --neon-dim: rgba(200, 255, 0, 0.08);
+  --neon-glow: rgba(200, 255, 0, 0.15);
+  --neon-deep: #a8d900;
+  --ink: #e8e8e0;
+  --ink-soft: #8a8a7a;
+  --ink-faint: #4a4a40;
+  --hairline: rgba(200, 255, 0, 0.08);
+  --hairline-strong: rgba(200, 255, 0, 0.15);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--ink-faint); border-radius: 3px; }
+
+/* ─── Glow effects ─── */
+.glow-neon {
+  box-shadow: 0 0 40px rgba(200, 255, 0, 0.08), 0 0 80px rgba(200, 255, 0, 0.04);
+}
+
+.text-glow {
+  text-shadow: 0 0 30px rgba(200, 255, 0, 0.3), 0 0 60px rgba(200, 255, 0, 0.1);
+}
+
+/* ─── Stipple texture overlay ─── */
+.stipple {
+  background-image: radial-gradient(circle, var(--neon) 0.5px, transparent 0.5px);
+  background-size: 4px 4px;
+}
+
+/* ─── Animated scan line ─── */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent, rgba(200, 255, 0, 0.03), transparent);
+  height: 30%;
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+}
+
+/* ─── Symbol strip marquee ─── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* ─── Fade up animations ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up { animation: fadeUp 0.8s ease-out both; }
+.fade-up-1 { animation-delay: 0.1s; }
+.fade-up-2 { animation-delay: 0.2s; }
+.fade-up-3 { animation-delay: 0.3s; }
+.fade-up-4 { animation-delay: 0.4s; }
+.fade-up-5 { animation-delay: 0.5s; }
+
+/* ─── Pulse glow on the logo ─── */
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(200, 255, 0, 0.2)); }
+  50% { filter: drop-shadow(0 0 20px rgba(200, 255, 0, 0.4)); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* ─── Buttons ─── */
+.btn-neon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  background: var(--neon);
+  color: var(--bg);
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-neon:hover {
+  background: #d4ff33;
+  box-shadow: 0 0 24px rgba(200, 255, 0, 0.3);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  background: transparent;
+  color: var(--neon);
+  border: 1px solid var(--hairline-strong);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  background: var(--neon-dim);
+  border-color: var(--neon);
+}
+
+/* ─── Fade in ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out both;
+}
+
+/* ─── Monument: Screen shake ─── */
+@keyframes screenShake {
+  0%, 100% { transform: translate(0); }
+  10% { transform: translate(-4px, 2px); }
+  30% { transform: translate(4px, -2px); }
+  50% { transform: translate(-2px, 4px); }
+  70% { transform: translate(2px, -4px); }
+  90% { transform: translate(-2px, 1px); }
+}
+
+.shake {
+  animation: screenShake 0.4s ease-out;
+}
+
+/* ─── Monument: Screen flashes ─── */
+@keyframes neonFlash {
+  0% { box-shadow: inset 0 0 0 rgba(200,255,0,0); }
+  50% { box-shadow: inset 0 0 120px rgba(200,255,0,0.08); }
+  100% { box-shadow: inset 0 0 0 rgba(200,255,0,0); }
+}
+
+.flash-success {
+  animation: neonFlash 0.5s ease-out;
+}
+
+@keyframes redFlash {
+  0% { box-shadow: inset 0 0 0 rgba(255,60,60,0); }
+  50% { box-shadow: inset 0 0 100px rgba(255,60,60,0.1); }
+  100% { box-shadow: inset 0 0 0 rgba(255,60,60,0); }
+}
+
+.flash-error {
+  animation: redFlash 0.3s ease-out;
+}
+
+/* ─── Monument: Vignette ─── */
+@keyframes vignettePulse {
+  0%, 100% { box-shadow: inset 0 0 80px rgba(0,0,0,0.3); }
+  50% { box-shadow: inset 0 0 120px rgba(0,0,0,0.6); }
+}
+
+.vignette-deep {
+  animation: vignettePulse 4s ease-in-out infinite;
+}
+
+/* ─── Monument: Labyrinth arrows ─── */
+.maze-arrow {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  border: 1px solid var(--hairline-strong);
+  background: var(--bg-card);
+  color: var(--neon);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.maze-arrow:active {
+  background: var(--neon);
+  color: var(--bg);
+}
